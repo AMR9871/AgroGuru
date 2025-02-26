@@ -1,0 +1,94 @@
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zip Code Form</title>
+</head>
+<body>
+
+    <h2>Enter Your Zip Code</h2>
+
+    <form action="#" method="post" id="zipCodeForm">
+        <label for="zipCode">Zip Code:</label>
+        <input type="text" id="zipCode" name="zipCode" required>
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        // Add an event listener to the form
+        document.getElementById('zipCodeForm').addEventListener('submit', function (event) {
+            // Prevent the default form submission behavior
+            event.preventDefault();
+
+            // Get the user's input (zip code)
+            const zipCode = document.getElementById('zipCode').value;
+
+            // Replace 'YOUR_API_KEY' with your actual OpenWeather API key
+            const apiKey = 'YOUR_API_KEY';
+
+            // Make a request to the OpenWeather API
+            fetch(`https://api.openweathermap.org/data/2.5/weather?zip=${zipCode}&appid=${apiKey}`)
+                .then(response => response.json())
+                .then(data => {
+                    // Handle the API response data (you can customize this part based on your needs)
+                    console.log(data);
+                    alert(`Current temperature in ${data.name}: ${data.main.temp}°C`);
+                })
+                .catch(error => {
+                    console.error('Error fetching data from OpenWeather API', error);
+                    alert('Error fetching data from OpenWeather API. Please try again later.');
+                });
+        });
+    </script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zip Code Form</title>
+</head>
+<body>
+
+    <h2>Enter Your Zip Code</h2>
+
+    <form action="#" method="post" id="zipCodeForm">
+        <label for="zipCode">Zip Code:</label>
+        <input type="text" id="zipCode" name="zipCode" required>
+        <button type="submit">Submit</button>
+    </form>
+
+    <div id="weatherResult"></div>
+
+    <script>
+        document.getElementById('zipCodeForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const zipCode = document.getElementById('zipCode').value;
+            const apiKey = 'YOUR_API_KEY';
+
+            fetch(`https://api.openweathermap.org/data/2.5/weather?zip=${zipCode}&appid=${apiKey}&units=metric`)
+                .then(response => response.json())
+                .then(data => {
+                    // Update the HTML content with weather information
+                    const weatherResultDiv = document.getElementById('weatherResult');
+                    weatherResultDiv.innerHTML = `
+                        <h3>Current Weather in ${data.name}</h3>
+                        <p>Temperature: ${data.main.temp}°C</p>
+                        <p>Weather: ${data.weather[0].description}</p>
+                        <p>Humidity: ${data.main.humidity}%</p>
+                    `;
+                })
+                .catch(error => {
+                    console.error('Error fetching data from OpenWeather API', error);
+                    alert('Error fetching data from OpenWeather API. Please try again later.');
+                });
+        });
+    </script>
+
+</body>
+</html>
